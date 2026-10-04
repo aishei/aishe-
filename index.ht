@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>تفاصيل عراق ستيل</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin:20px; }
+    h1 { color:#333; }
+    .product { margin:20px 0; }
+    .counter { display:flex; align-items:center; gap:10px; margin:10px 0; }
+    button { padding:5px 10px; background:#e67e22; color:white; border:none; border-radius:4px; }
+    button:hover { background:#d35400; }
+  </style>
+</head>
+<body>
+  <h1>تفاصيل حديد عراق ستيل</h1>
+  <p>المعمل المنتج: معمل البصرة للحديد<br>تاريخ التأسيس: 1995</p>
+  <img src="https://via.placeholder.com/400x250?text=عراق+ستيل" alt="عراق ستيل">
+
+  <h2>القياسات المتوفرة</h2>
+  <div class="product">
+    <label>8 ملم</label>
+    <div class="counter">
+      <button onclick="decrease('c8')">-</button>
+      <span id="c8">0</span>
+      <button onclick="increase('c8')">+</button>
+    </div>
+  </div>
+  <div class="product">
+    <label>12 ملم</label>
+    <div class="counter">
+      <button onclick="decrease('c12')">-</button>
+      <span id="c12">0</span>
+      <button onclick="increase('c12')">+</button>
+    </div>
+  </div>
+  <!-- كرر حتى 32 ملم -->
+
+  <script>
+    function increase(id) {
+      let el = document.getElementById(id);
+      el.textContent = parseInt(el.textContent) + 1;
+    }
+    function decrease(id) {
+      let el = document.getElementById(id);
+      let val = parseInt(el.textContent);
+      if(val > 0) el.textContent = val - 1;
+    }
