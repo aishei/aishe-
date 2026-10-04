@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>شركة طاقات الفولاذ</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#f9f9f9; margin:0; }
+    header { background:#e67e22; color:white; padding:20px; text-align:center; }
+    h1 { margin:0; }
+    .grid { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; margin:20px; }
+    .card { background:white; border-radius:12px; box-shadow:0 2px 6px rgba(0,0,0,0.2); width:220px; padding:15px; text-align:center; }
+    .card img { width:100%; border-radius:8px; height:150px; object-fit:cover; }
+    .price { color:#e67e22; font-weight:bold; margin:10px 0; }
+    .btn { background:#e67e22; color:white; padding:10px 15px; border-radius:6px; text-decoration:none; cursor:pointer; }
+    .btn:hover { background:#d35400; }
+    .details { display:none; margin:20px; padding:20px; background:white; border-radius:12px; box-shadow:0 2px 6px rgba(0,0,0,0.2); }
+    .counter { display:flex; align-items:center; gap:10px; margin:10px 0; }
+    .counter button { padding:5px 10px; background:#e67e22; color:white; border:none; border-radius:4px; }
+    .counter button:hover { background:#d35400; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>شركة طاقات الفولاذ لبيع حديد التسليح</h1>
+  </header>
+
+  <!-- شبكة المنتجات -->
+  <div class="grid">
+    <div class="card">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Rebar_bundles.jpg" alt="عراق ستيل">
+      <div class="price">السعر: يتحدث تلقائياً</div>
+      <button class="btn" onclick="showDetails('iraqsteel')">تفاصيل</button>
+    </div>
+    <div class="card">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Rebar_in_construction.jpg" alt="هلال بابل">
+      <div class="price">السعر: يتحدث تلقائياً</div>
+      <button class="btn" onclick="showDetails('hilalbabel')">تفاصيل</button>
+    </div>
+    <div class="card">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Steel_rebar.jpg" alt="erg">
+      <div class="price">السعر: يتحدث تلقائياً</div>
+      <button class="btn" onclick="showDetails('erg')">تفاصيل</button>
+    </div>
+    <!-- كرر بقية الأنواع بنفس النمط -->
+  </div>
+
+  <!-- قسم التفاصيل -->
+  <div id="details" class="details">
+    <h2 id="productName"></h2>
+    <img id="productImage" src="" alt="" style="width:300px; border-radius:8px;">
+    <p id="productInfo"></p>
+
+    <h3>القياسات المتوفرة</h3>
+    <div id="sizes"></div>
+  </div>
+
+  <script>
+    const products = {
+      iraqsteel: {
+        name: "عراق ستيل",
+        image: "https://upload.wikimedia.org/wikipedia/commons/0/0e/Rebar_bundles.jpg",
+        info: "المعمل المنتج: معمل البصرة للحديد – تأسس 1995",
+      },
+      hilalbabel: {
+        name: "هلال بابل",
+        image: "https://upload.wikimedia.org/wikipedia/commons/3/3f/Rebar_in_construction.jpg",
+        info: "المعمل المنتج: معمل بابل – تأسس 2000",
+      },
+      erg: {
+        name: "erg",
+        image: "https://upload.wikimedia.org/wikipedia/commons/6/6e/Steel_rebar.jpg",
+        info: "المعمل المنتج: معمل أربيل – تأسس 2010",
+      }
+      // أضف بقية الأنواع هنا بنفس النمط
+    };
+
+    function showDetails(key) {
+      const product = products[key];
+      document.getElementById("productName").textContent = product.name;
+      document.getElementById("productImage").src = product.image;
+      document.getElementById("productInfo").textContent = product.info;
+
+      // توليد القياسات مع عداد
+      const sizesDiv = document.getElementById("sizes");
+      sizesDiv.innerHTML = "";
+      for(let size=8; size<=32; size+=4){
+        const div = document.createElement("div");
+        div.className = "counter";
+        div.innerHTML = `
+          <label>${size} ملم</label>
+          <button onclick="decrease('${key}_${size}')">-</button>
+          <span id="${key}_${size}">0</span>
+          <button onclick="increase('${key}_${size}')">+</button>
+        `;
+        sizesDiv.appendChild(div);
+      }
+
+      document.getElementById("details").style.display = "block";
+      window.scrollTo(0, document.getElementById("details").offsetTop);
+    }
+
+    function increase(id) {
+      let el = document.getElementById(id);
+      el.textContent = parseInt(el.textContent) + 1;
+    }
+    function decrease(id) {
+      let el = document.getElementById(id);
+      let val = parseInt(el.textContent);
+      if(val > 0) el.textContent = val - 1;
+    }
+  </script>
+</body>
+</html>
